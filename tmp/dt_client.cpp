@@ -23,10 +23,10 @@ int main(int argc, char const* argv[])
 		boost::asio::connect(socket, endpoint_iterator);
 
 		std::vector<int> data_size(1);
-		data_size[0] = 5;
+		data_size[0] = 9;
 		socket.write_some(boost::asio::buffer(data_size));
 
-		socket.write_some(boost::asio::buffer("him8"));
+		socket.write_some(boost::asio::buffer("<n>3</n>"));
 
 		for(;;)
 		{

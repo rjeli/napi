@@ -1,4 +1,5 @@
 #include <iostream>
+#include <rapidxml/rapidxml.hpp>
 #include "server.hpp"
 
 tcp_connection::pointer tcp_connection::create(boost::asio::io_service& io_service)
@@ -38,8 +39,16 @@ void tcp_connection::start()
 
 void tcp_connection::handle_xml(const boost::system::error_code&, size_t)
 {
-	std::cout << "we received data yo" << std::endl;
-	std::cout << std::string(data.begin(), data.end()) << std::endl;
+	std::string data_string = std::string(data.begin(), data.end());
+
+	std::cout << "we received data" << std::endl;
+	std::cout << data_string << std::endl;
+
+	rapidxml::xml_document<> xml_data;
+	xml_data.parse<0>(data.data()); //yeah i know bad name
+	std::cout << "we parsed the data" << std::endl;
+	std::cout << "first node is: " << xml_data.first_node()->name() << std::endl;
+	std::cout << "its value is: " << xml_data.first_node()->value() << std::endl;
 }
 
 void tcp_server::start_accept()
