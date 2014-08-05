@@ -22,6 +22,12 @@ int main(int argc, char const* argv[])
 		tcp::socket socket(io_service);
 		boost::asio::connect(socket, endpoint_iterator);
 
+		std::vector<int> data_size(1);
+		data_size[0] = 5;
+		socket.write_some(boost::asio::buffer(data_size));
+
+		socket.write_some(boost::asio::buffer("him8"));
+
 		for(;;)
 		{
 			boost::array<char, 128> buf;

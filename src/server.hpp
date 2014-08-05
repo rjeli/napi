@@ -21,9 +21,12 @@ private:
 	tcp_connection(boost::asio::io_service& io_service)
 		: socket_(io_service){};
 	void handle_write(const boost::system::error_code&, size_t);
+	void handle_xml(const boost::system::error_code&, size_t);
 
 	tcp::socket socket_;
 	std::string message_;
+	std::vector<int> data_size;
+	std::vector<char> data;
 };
 
 class tcp_server
